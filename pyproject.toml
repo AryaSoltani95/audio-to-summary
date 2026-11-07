@@ -7,7 +7,13 @@ authors = [
     { name = "Arya", email = "aryasoltaniprogramming@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "dotenv>=0.9.9",
+    "huggingface-hub>=2.4.0",
+    "openai>=3.46.0",
+    "torch>=2.15.0",
+    "transformers>=5.22.2",
+]
 
 [project.scripts]
 audio-to-summary = "audio_to_summary:main"
@@ -15,3 +21,21 @@ audio-to-summary = "audio_to_summary:main"
 [build-system]
 requires = ["uv_build>=0.12.10,<0.13.0"]
 build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["test"]
+addopts = "-v -s"
+env = [
+    "DATA_FOLDER=./data",
+    "SUMMARIZER_MODEL=Qwen/Qwen2.5-3B-Instruct",
+    "CLOUD_SUMMARIZER_MODEL=gapgpt-gemma-26b-a4b",
+    "CLOUD_TRANSCRIBER_MODEL=gapgpt/whisper-1"
+]
+
+
+[tool.audio_to_summary.env]
+DATA_FOLDER = "./data"
+SUMMARIZER_MODEL = "Qwen/Qwen2.5-3B-Instruct"
+CLOUD_SUMMARIZER_MODEL = "gapgpt-gemma-26b-a4b"
+
